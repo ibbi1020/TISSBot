@@ -25,4 +25,4 @@ def getReponses(message: str) -> str:
         if (random.randint(1,2) == 1):
             return '`khud samajh bhai mereko nahi maaloom`'
         else:
-            return '`This is a help message`'
+            return '`This is a help message `'

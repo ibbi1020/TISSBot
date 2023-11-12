@@ -25,4 +25,4 @@ def getReponses(message: str) -> str:
         if (random.randint(1,2) == 1):
             return '`khud samajh bhai mereko nahi maaloom`'
         else:
-            return '`Theres no specific commands yet. Check back soon`'
+            return '`Theres no specific commands yet. Check back soon!`'

@@ -26,8 +26,3 @@ def getReponses(message: str) -> str:
             return '`khud samajh bhai mereko nahi maaloom`'
         else:
             return '`Theres no specific commands yet. Check back soon!`'
-
-
-
-
-            

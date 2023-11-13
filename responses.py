@@ -7,7 +7,7 @@ def getReponses(message: str) -> str:
     text3 = 'mar jaatey hain'
 
     if text1 in pmessage:
-        return ':ss::aa::dd:'
+        return '<:ss:1169124467600015360><:aa:1169124417582940170><:dd:1169124140620468284>'
 
     if text2 in pmessage or text3 in pmessage:
         if (random.randint(1,2) == 1):
@@ -15,7 +15,7 @@ def getReponses(message: str) -> str:
         else:
             return 'chalo 6th floor'
 
-    if pmessage == 'hello':
+    if pmessage == 'hello' or pmessage == 'hi':
         return 'Kia hai bey?'
 
     if pmessage == 'roll':

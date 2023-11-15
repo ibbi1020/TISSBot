@@ -1,4 +1,7 @@
 import random
+import discord
+import responses
+import discord.ext
 
 def getReponses(message: str, username) -> str:
     pmessage = message.lower()
@@ -42,8 +45,8 @@ def getReponses(message: str, username) -> str:
 
     ## kaam ki cheezain:
     # Timetable: 
-    timetable = "`Monday:\n\tAP (C-302) [8:30AM - 9:50AM]\n\t(C-302) [10:00AM - 11:20AM]\n\tCalc (C-302) [11:30AM - 12:50PM]\n\tFunc Eng (C-302) [2:00PM - 3:45PM]\n\nTuesday:\n\tIsl (C-305) [8:30AM - 10:15AM]\n\tFunc Eng Lab (A-Call) [11:25AM - 2:10PM] (Second Floor, Block-A)\n\nWednesday:\n\tPF (C-301) [10:00AM - 11:20AM]\n\tCalc (C-301) [11:30AM - 12:50PM]\n\tAP (C-307) [1:00PM - 2:20PM]\n\nThursday:\n\tIICT (C-Margala-1) [8:30AM - 11:15AM] Allah aap sabko apne hifz o amaan mai rakahin\n\tPF Lab (C-Margala-1) [2:25PM - 5:10PM]`\n"
-    if pmessage == '!timetable':
-        if (random.randint(1,3)==1):
-            return 'sab kaam mai khud karoon?'
-        return timetable
+    # timetable = "`Monday:\n\tAP (C-302) [8:30AM - 9:50AM]\n\t(C-302) [10:00AM - 11:20AM]\n\tCalc (C-302) [11:30AM - 12:50PM]\n\tFunc Eng (C-302) [2:00PM - 3:45PM]\n\nTuesday:\n\tIsl (C-305) [8:30AM - 10:15AM]\n\tFunc Eng Lab (A-Call) [11:25AM - 2:10PM] (Second Floor, Block-A)\n\nWednesday:\n\tPF (C-301) [10:00AM - 11:20AM]\n\tCalc (C-301) [11:30AM - 12:50PM]\n\tAP (C-307) [1:00PM - 2:20PM]\n\nThursday:\n\tIICT (C-Margala-1) [8:30AM - 11:15AM] Allah aap sabko apne hifz o amaan mai rakahin\n\tPF Lab (C-Margala-1) [2:25PM - 5:10PM]`\n"
+    # if pmessage == '!timetable':
+    #     if (random.randint(1,3)==1):
+    #         return 'sab kaam mai khud karoon?'
+    #     return timetable

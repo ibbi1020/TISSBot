@@ -1,5 +1,6 @@
 import discord
 import responses
+import keys
 import requests
 import json
 from jokeapi import Jokes
@@ -14,7 +15,6 @@ async def send_message(message, user_message, username, is_private):
         print(e)
 
 def run_discord_bot():
-    TOKEN = 'MTE3MjA5NzAxNzMwOTMwMjgzNA.Gji_lM.YnR4QhSUMWGUnY_GMvL2JujrRxbf_l0SOtO_ME'
     intents = discord.Intents.default()
     intents.message_content = True
     intents.members  = True
@@ -45,11 +45,10 @@ def run_discord_bot():
     # Welcome Message
     @client.event
     async def on_member_join(member):
-        channel = client.get_channel(1172100450611367949)
+        channel = client.get_channel(keys.botchannel)
         await channel.send(f"{member} just arrived! **CS-B** Discord mai aapka swagat hai :)")
 
     ##Commands
-    
     # Send Timetable 
     @client.command()
     async def timetable(ctx):
@@ -66,6 +65,7 @@ def run_discord_bot():
         
         await ctx.send(embed = embed)
 
+    # send thanda joke
     @client.command()
     async def thandajoke(ctx):
         url = "https://jokes-by-api-ninjas.p.rapidapi.com/v1/jokes"
@@ -77,28 +77,35 @@ def run_discord_bot():
 
         response = requests.get(url, headers=headers)
 
-        channel = client.get_channel(1172100450611367949)
-        await channel.send(json.loads(response.text)[0]['joke'])
-        await channel.send("(please hasso)")
+        await ctx.send(json.loads(response.text)[0]['joke'])
+        await ctx.send("(please hasso)")
 
+    # use at your own risk
     @client.command()
     async def garamjoke(ctx):
-        channel = client.get_channel(1172100450611367949)
-
         j = await Jokes()                                           # Initialise the class
         joke = await j.get_joke(category=['dark'])                  # Retrieve a random joke
         if joke["type"] == "single":                                # Print the joke
             await channel.send(joke["joke"])
         else:
-            await channel.send(joke["setup"])
-            await channel.send(joke["delivery"])
+            await ctx.send(joke["setup"])
+            await ctx.send(joke["delivery"])
 
-    # Test Command
-    @client.command()
-    async def test(ctx):
-        await ctx.send('done')
+    # help section
+    # @client.command()
+    # async def help(ctx):
+    #     embed = discord.Embed(
+    #         colour = discord.Colour.dark_magenta,
+    #         title = "Commands"
+    #     )
 
-    client.run(TOKEN)
+    #     embed.add_field(name="!timetable", value="displays CS-B Time table", inline=False)
+    #     embed.add_field(name="!thandajoke", value="chuss", inline=False)
+    #     embed.add_field(name="!garamjoke", value="use at your own risk", inline=False)
+        
+    #     await ctx.send(embed = embed)
+
+    client.run(keys.token)
 
 
 

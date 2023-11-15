@@ -27,11 +27,11 @@ def getReponses(message: str, username) -> str:
         return random.randint(1,6)
 
     ## Unhelpful help 
-    if pmessage == '!help':
-        if (random.randint(1,2) == 1):
-            return '`khud samajh bhai mereko nahi maaloom`'
-        else:
-            return '`**!timetable** - CS-B Time Table`'
+    # if pmessage == '!help':
+    #     if (random.randint(1,2) == 1):
+    #         return '`khud samajh bhai mereko nahi maaloom`'
+    #     else:
+    #         return '`**!timetable** - CS-B Time Table\n**!thandajoke** - chuss\n**!garamjoke** - use at your own risk`'
     
     ## Rehan Bully section
     if username == 'rehanakram':

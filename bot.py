@@ -1,5 +1,8 @@
 import discord
 import responses
+import requests
+import json
+from jokeapi import Jokes
 from discord.ext import commands
 
 async def send_message(message, user_message, username, is_private):
@@ -11,7 +14,7 @@ async def send_message(message, user_message, username, is_private):
         print(e)
 
 def run_discord_bot():
-    TOKEN = 'MTE3MjA5NzAxNzMwOTMwMjgzNA.GwlgZ9.w3yr6nXrRb8YxVVc5aam-c5JHZu7RhLzYBtgG4'
+    TOKEN = 'MTE3MjA5NzAxNzMwOTMwMjgzNA.Gji_lM.YnR4QhSUMWGUnY_GMvL2JujrRxbf_l0SOtO_ME'
     intents = discord.Intents.default()
     intents.message_content = True
     intents.members  = True
@@ -33,15 +36,17 @@ def run_discord_bot():
         username = str(message.author)
         user_message = str(message.content)
         channel = str(message.channel)
-
+        
+        ## for testing
         print(f'{username} said: "{user_message}" in {channel}')
 
-        if user_message[0] == '?':
-            user_message = user_message[1:]
-            await send_message(message, user_message, is_private = True)
-        else:
-            await send_message(message, user_message, username, is_private = False)
+        await send_message(message, user_message, username, is_private = False)
 
+    # Welcome Message
+    @client.event
+    async def on_member_join(member):
+        channel = client.get_channel(1172100450611367949)
+        await channel.send(f"{member} just arrived! **CS-B** Discord mai aapka swagat hai :)")
 
     ##Commands
     
@@ -50,9 +55,8 @@ def run_discord_bot():
     async def timetable(ctx):
         await ctx.send("Yelo timetable. Class mai samajhna tou wesi kuch hai nahi, atleast attendance hi lagwalena")
         embed = discord.Embed(
-            #content = "Ye lo timetable. Class mai wesi kuch samajh nahi aani, atleast attendence hi lagwalo",
             colour = discord.Colour.dark_purple(),
-            title = 'Timetable for CS-B'
+            title = "Timetable for CS-B"
         )
 
         embed.add_field(name="Monday", value="\n**AP** (C-302) 8:30AM - 9:50AM\n**PF** (C-302) 10:00AM - 11:20AM\n**Calc** (C-302) 11:30AM - 12:50PM `Goodluck getting attendance`\n**Func Eng** (C-302) 2:00PM - 3:45PM", inline=False)
@@ -61,6 +65,33 @@ def run_discord_bot():
         embed.add_field(name="Thursday", value="\n**IICT** (C-Margala-1) 8:30AM - 11:15AM `Allah aap sabki izzat apne hifz o amaan mai rakahin`\n**PF Lab** (C-Margala-1) 2:25PM - 5:10PM", inline=False)
         
         await ctx.send(embed = embed)
+
+    @client.command()
+    async def thandajoke(ctx):
+        url = "https://jokes-by-api-ninjas.p.rapidapi.com/v1/jokes"
+
+        headers = {
+            "X-RapidAPI-Key": "4cef5f54c9msh2daddf45ec7b512p11e0ddjsnc918e2567fb5",
+            "X-RapidAPI-Host": "jokes-by-api-ninjas.p.rapidapi.com"
+        }
+
+        response = requests.get(url, headers=headers)
+
+        channel = client.get_channel(1172100450611367949)
+        await channel.send(json.loads(response.text)[0]['joke'])
+        await channel.send("(please hasso)")
+
+    @client.command()
+    async def garamjoke(ctx):
+        channel = client.get_channel(1172100450611367949)
+
+        j = await Jokes()                                           # Initialise the class
+        joke = await j.get_joke(category=['dark'])                  # Retrieve a random joke
+        if joke["type"] == "single":                                # Print the joke
+            await channel.send(joke["joke"])
+        else:
+            await channel.send(joke["setup"])
+            await channel.send(joke["delivery"])
 
     # Test Command
     @client.command()
